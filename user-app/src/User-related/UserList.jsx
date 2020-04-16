@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import UserController from '../api/UserApp/UserController.js'
 import ReactHtmlParser from 'react-html-parser';
+//import parse from 'html-react-parser'
 
 export default class UserApp extends Component {
     
@@ -19,8 +20,9 @@ export default class UserApp extends Component {
     render () {
         //const Entities = require('html-entities').AllHtmlEntities;
         //const entities = new Entities();
-        const headerVal = this.state.headers.map(xyz=>xyz.contentNodes.body.value);
-        const footerVal = this.state.footers.map(xyz=>xyz.contentNodes.body.value);
+        const headerVal = ReactHtmlParser(this.state.headers.map(xyz=>xyz.contentNodes.body.value));
+        const footerVal = ReactHtmlParser(this.state.footers.map(xyz=>xyz.contentNodes.body.value));
+        //console.log(headerVal[0]);
          return (
              
         <div>
@@ -31,10 +33,10 @@ export default class UserApp extends Component {
             <div className='container'>
                 <button onClick={this.retreiveNews}>Click here !!</button>
                 <div className = "container">
-                {this.state.headers.length? ReactHtmlParser(headerVal) : null}
+                {this.state.headers.length? ReactHtmlParser(headerVal[0]) : null}
                 <br/>
                 <br/>
-                {this.state.footers.length? ReactHtmlParser(footerVal) : null}
+                {this.state.footers.length? ReactHtmlParser(footerVal[0]) : null}
                 </div>
             </div>
         </div>
