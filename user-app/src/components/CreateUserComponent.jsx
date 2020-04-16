@@ -35,7 +35,7 @@ export default class CreateUserComponent extends Component {
                     >
                         {
                             (props) => (
-                                <Form>
+                                {/* <Form>
                                     <fieldset className='form-group'>
                                         <label>Name</label>
                                         <Field className='form-control' type='text' name='name'></Field>
@@ -43,7 +43,7 @@ export default class CreateUserComponent extends Component {
                                         <Field className='form-control' type='text' name='phoneNumber'></Field>
                                         <button type='submit' className='btn btn-success' >Save</button>
                                     </fieldset>
-                                </Form>
+                                </Form> */}
                             )
                         }
                     </Formik>

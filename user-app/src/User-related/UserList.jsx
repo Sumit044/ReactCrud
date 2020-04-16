@@ -1,67 +1,53 @@
 import React, {Component} from 'react'
 import UserController from '../api/UserApp/UserController.js'
-import CreateUserComponent from '../components/CreateUserComponent'
+import ReactHtmlParser from 'react-html-parser';
 
 export default class UserApp extends Component {
     
     constructor(props) {
         super(props)
         this.state = {
-            users : []
+            headers : [],
+            footers : []
         }
 
-        this.retreiveAllUsers = this.retreiveAllUsers.bind(this);
-        this.createNewUser=this.createNewUser.bind(this);
+        this.retreiveNews = this.retreiveNews.bind(this);
+        
     }
 
     
     render () {
+        //const Entities = require('html-entities').AllHtmlEntities;
+        //const entities = new Entities();
+        const headerVal = this.state.headers.map(xyz=>xyz.contentNodes.body.value);
+        const footerVal = this.state.footers.map(xyz=>xyz.contentNodes.body.value);
          return (
+             
         <div>
             <div className='UserApp'>
-                <h1>User Application</h1>
-            </div>
-            
-            <div className='newUserForm'>
-                <CreateUserComponent/>
+                <h1>Demo</h1>
             </div>
 
             <div className='container'>
-                <button onClick={this.retreiveAllUsers}>Click here !!</button>
-
-                <table className="container">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Contact Number</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        this.state.users.map (
-                            user =>
-                                <tr key={user.id}>
-                                    <td>{user.id}</td>
-                                    <td>{user.name}</td>
-                                    <td>{user.phoneNumber}</td>
-                                </tr>
-                        )
-                        }
-                    </tbody>
-                </table>
+                <button onClick={this.retreiveNews}>Click here !!</button>
+                <div className = "container">
+                {this.state.headers.length? ReactHtmlParser(headerVal) : null}
+                <br/>
+                <br/>
+                {this.state.footers.length? ReactHtmlParser(footerVal) : null}
+                </div>
             </div>
         </div>
         );
     }
 
-    retreiveAllUsers() {
-        UserController.retriveAllUsers()
-        .then(response => this.setState({users : response.data}));
-         //.catch(response => console.log(response))
+    retreiveNews() {
+        UserController.retriveHeader()
+        .then(response => this.setState({headers : response.data.items}));
+
+         UserController.retriveFooter()
+        .then(response => this.setState({footers : response.data.items}));
+
     }
 
-    createNewUser() {
-
-    }
 }

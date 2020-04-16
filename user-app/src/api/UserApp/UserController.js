@@ -1,12 +1,13 @@
 import Axios from "axios"
 
 class UserController {
-    retriveAllUsers() {
-        return Axios.get('https://spring-mysql.herokuapp.com/rest/users');
+
+    retriveHeader() {
+        return Axios.get('http://localhost:8080/header');
     }
 
-    createUser(user) {
-        return Axios.post('https://spring-mysql.herokuapp.com/rest/users', user);
+    retriveFooter() {
+        return Axios.get('http://localhost:8080/footer');
     }
 
 }
